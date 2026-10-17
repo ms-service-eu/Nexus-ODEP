@@ -3,8 +3,9 @@
 // === ODEP COMPONENT SELECTION ===
 // Jedes Gerät benötigt den Core (Schicht 1 Basic).
 
-#define ODEP_ENABLE_SCHEDULER       // Auskommentieren für extrem kleine MCUs (spart RAM)
-#define ODEP_ENABLE_VIRTUALIZATION  // Auskommentieren, wenn das Gerät kein Proxy sein muss
+// wird im makefile definiert
+//#define ODEP_ENABLE_SCHEDULER       // Auskommentieren für extrem kleine MCUs (spart RAM)
+//#define ODEP_ENABLE_VIRTUALIZATION  // Auskommentieren, wenn das Gerät kein Proxy sein muss
 
 // === LIMITS FOR RESOURCE CONSTRAINED SYSTEMS ===
 #define ODEP_MAX_RESOURCES 8

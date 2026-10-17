@@ -1,0 +1,28 @@
+# ==============================================================================
+# ODEP (Object-Driven Edge Protocol) - Git Ignore File
+# ==============================================================================
+
+# --- Compiler-Ausgaben & Binaries ---
+*.o
+*.obj
+*.out
+odep_device_node
+odep_device_node.exe
+
+# --- LibreOffice / MS Office Temporäre Dateien ---
+.~lock.*.odp#
+.~lock.*.odt#
+~$*.docx
+~$*.pptx
+
+# --- IDEs & Editoren ---
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# --- Logfiles & Dumps ---
+*.log
+*.dmp

@@ -1,5 +1,5 @@
 # ==============================================================================
-# ODP (Object-Driven Edge Protocol) - Modulares GNU Makefile
+# ODEP (Object-Driven Edge Protocol) - Modulares GNU Makefile
 # ==============================================================================
 
 # 1. COMPILER & FLAGS DEFINIEREN
@@ -7,26 +7,26 @@ CXX      := g++
 CXXFLAGS := -Wall -Wextra -O3 -std=c++17
 
 # Name der fertigen ausführbaren Datei
-TARGET   := odp_device_node
+TARGET   := odep_device_node
 
 # 2. MODUL-KONFIGURATION (Hier aktivieren/deaktivieren)
 # Setze die Variablen auf 1 zum Einschalten oder 0 zum Ausschalten.
-# Dies korrespondiert mit den Defines in der ODP_Config.h.
+# Dies korrespondiert mit den Defines in der ODEP_Config.h.
 ENABLE_SCHEDULER       := 1
 ENABLE_VIRTUALIZATION  := 1
 
 # 3. QUELLDATEIEN (MINDSTENS DER KERNEL)
-SRCS := main.cpp ODP_Core.cpp
+SRCS := main.cpp ODEP_Core.cpp
 
 # 4. CONDITIONALS: MODULE DYNAMISCH HINZUFÜGEN
 ifeq ($(ENABLE_SCHEDULER), 1)
-    SRCS     += ODP_Scheduler.cpp
-    CXXFLAGS += -DODP_ENABLE_SCHEDULER
+    SRCS     += ODEP_Scheduler.cpp
+    CXXFLAGS += -DODEP_ENABLE_SCHEDULER
 endif
 
 ifeq ($(ENABLE_VIRTUALIZATION), 1)
-    SRCS     += ODP_VirtualDevice.cpp
-    CXXFLAGS += -DODP_ENABLE_VIRTUALIZATION
+    SRCS     += ODEP_VirtualDevice.cpp
+    CXXFLAGS += -DODEP_ENABLE_VIRTUALIZATION
 endif
 
 # Automatische Generierung der Object-Dateien (.cpp -> .o)
@@ -50,14 +50,14 @@ $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET)
 
 # Kompilieren der einzelnen Quellcodedateien
-%.o: %.cpp ODP_Config.h ODP_Binary.h
+%.o: %.cpp ODEP_Config.h ODEP_Binary.h
 	@echo "🔨 Kompiliere $< ..."
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Status-Informationen im Terminal ausgeben
 info:
 	@echo "=============================================================================="
-	@echo "🏗️  ODP Modulare Kompilation Gestartet"
+	@echo "🏗️  ODEP Modulare Kompilation Gestartet"
 	@echo "⚙️  Scheduler Module:     $(if $(filter 1,$(ENABLE_SCHEDULER)),AKTIV,DEAKTIVIERT)"
 	@echo "⚙️  Virtualization Mode:  $(if $(filter 1,$(ENABLE_VIRTUALIZATION)),PROXY-ACTIVE,STANDALONE)"
 	@echo "📂 Quelldateien:         $(SRCS)"
@@ -65,7 +65,7 @@ info:
 
 # Startet das Programm direkt nach dem Kompilieren ('make run')
 run: all
-	@echo "🚀 Starte ODP-Instanz..."
+	@echo "🚀 Starte ODEP-Instanz..."
 	./$(TARGET)
 
 # Säubert das Verzeichnis von Kompilaten ('make clean')

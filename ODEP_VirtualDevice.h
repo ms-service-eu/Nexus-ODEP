@@ -1,8 +1,8 @@
 #pragma once
-#include "ODP_Config.h"
+#include "ODEP_Config.h"
 
-#ifdef ODP_ENABLE_VIRTUALIZATION
-#include "ODP_Core.h"
+#ifdef ODEP_ENABLE_VIRTUALIZATION
+#include "ODEP_Core.h"
 #include <map>
 
 struct SubHardwareMapping {
@@ -10,13 +10,13 @@ struct SubHardwareMapping {
     int address;
 };
 
-class ODPVirtualDevice : public ODPNode {
+class ODEPVirtualDevice : public ODEPNode {
 private:
     std::string vd_id;
     std::map<std::string, SubHardwareMapping> hardware_matrix;
 
 public:
-    ODPVirtualDevice(const std::string& id) : vd_id(id) {}
+    ODEPVirtualDevice(const std::string& id) : vd_id(id) {}
     
     void mapResourceToPhysicalOut(const std::string& res_name, const std::string& proto, int addr);
     

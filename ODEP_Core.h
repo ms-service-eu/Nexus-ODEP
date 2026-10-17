@@ -1,32 +1,32 @@
 #pragma once
-#include "ODP_Config.h"
+#include "ODEP_Config.h"
 #include <string>
 #include <vector>
 
-enum class ODPMode { FREE, EXCLUSIVE, SHARED };
+enum class ODEPMode { FREE, EXCLUSIVE, SHARED };
 
 struct Resource {
     std::string name;
-    ODPMode mode = ODPMode::FREE;
+    ODEPMode mode = ODEPMode::FREE;
     std::string current_owner = "";
     int priority = 0;
 };
 
-class ODPNode {
+class ODEPNode {
 protected:
-    Resource resources[ODP_MAX_RESOURCES];
+    Resource resources[ODEP_MAX_RESOURCES];
     int resource_count = 0;
 
 public:
-    ODPNode() = default;
+    ODEPNode() = default;
     
     bool registerResource(const std::string& name);
     
-    // Verarbeitet die administrativen Rechte im ODP-Rahmen
-    bool requestResource(const std::string& res_name, const std::string& controller, ODPMode desired_mode, int priority);
+    // Verarbeitet die administrativen Rechte im ODEP-Rahmen
+    bool requestResource(const std::string& res_name, const std::string& controller, ODEPMode desired_mode, int priority);
     void releaseResource(const std::string& res_name, const std::string& controller);
     
-    // Nimmt den ODP-Rahmen entgegen und entscheidet über die Weitergabe der Payload
+    // Nimmt den ODEP-Rahmen entgegen und entscheidet über die Weitergabe der Payload
     bool processIncomingFrame(const std::string& res_name, const std::string& controller, int priority, const std::string& opaque_payload);
     
     virtual void executePayload(const std::string& res_name, const std::string& payload) {

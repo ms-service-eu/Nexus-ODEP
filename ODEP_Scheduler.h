@@ -1,7 +1,7 @@
 #pragma once
-#include "ODP_Config.h"
+#include "ODEP_Config.h"
 
-#ifdef ODP_ENABLE_SCHEDULER
+#ifdef ODEP_ENABLE_SCHEDULER
 #include <cstdint>
 #include <string>
 
@@ -13,12 +13,12 @@ struct FutureSlot {
     bool active = false;
 };
 
-class ODPScheduler {
+class ODEPScheduler {
 private:
-    FutureSlot timeline[ODP_MAX_FUTURE_SLOTS];
+    FutureSlot timeline[ODEP_MAX_FUTURE_SLOTS];
 public:
-    ODPScheduler() = default;
+    ODEPScheduler() = default;
     bool scheduleFrame(uint64_t ptp_time, uint32_t duration, const std::string& controller, const std::string& payload);
-    void tick(uint64_t current_ptp_time, class ODPNode* node, const std::string& res_name);
+    void tick(uint64_t current_ptp_time, class ODEPNode* node, const std::string& res_name);
 };
 #endif

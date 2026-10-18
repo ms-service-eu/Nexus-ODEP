@@ -1,28 +1,28 @@
-# ==============================================================================
-# ODEP (Object-Driven Edge Protocol) - Git Ignore File
-# ==============================================================================
+# Compiler & Build-Verzeichnisse
+.cmake/
+CMakeCache.txt
+CMakeFiles/
+CMakePresets.json
+Makefile
+cmake_install.cmake
+build/
+.ninja_deps
+.ninja_log
+build.ninja
 
-# --- Compiler-Ausgaben & Binaries ---
-*.o
-*.obj
-*.out
-odep_device_node
-odep_device_node.exe
+old/
+tmp/
 
-# --- LibreOffice / MS Office Temporäre Dateien ---
-.~lock.*.odp#
-.~lock.*.odt#
-~$*.docx
-~$*.pptx
+# Ausführbare Binaries & Bibliotheken
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
 
-# --- IDEs & Editoren ---
+# IDE & Editor-spezifische Dateien
 .vscode/
 .idea/
-*.sublime-project
-*.sublime-workspace
-.DS_Store
-Thumbs.db
-
-# --- Logfiles & Dumps ---
-*.log
-*.dmp
+*.suo
+*.user

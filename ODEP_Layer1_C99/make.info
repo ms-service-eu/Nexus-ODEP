@@ -1,0 +1,2 @@
+make        # Baut die statische Bibliothek odep_l1_core.a
+make clean  # Löscht alle .o und .a Dateien

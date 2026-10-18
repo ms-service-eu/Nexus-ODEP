@@ -1,6 +1,7 @@
 # Nexus Object-Driven Edge Protocol (Nexus-ODEP)
 
-\[!\[DOI](https://zenodo.org)](https://doi.org/10.5281/zenodo.23427130)
+\[!\[DOI](https://zenodo.org)]
+https://doi.org/10.5281/zenodo.23427130
 
 
 

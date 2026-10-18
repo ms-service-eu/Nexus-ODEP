@@ -26,3 +26,6 @@ tmp/
 .idea/
 *.suo
 *.user
+
+# sonstiges
+chat_kontext.txt

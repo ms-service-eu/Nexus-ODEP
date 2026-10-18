@@ -1,27 +1,12 @@
-#include "odep_l1.h"
+#include "Odep_l1.h"
 
-/* Hilfsfunktion: Vergleicht zwei PTP-Zeitstempel (Rückgabe 1 wenn t1 >= t2, sonst 0) */
-static uint8_t odep_time_reached(const OdepPtpTime_t* t1, const OdepPtpTime_t* t2) {
-    if (t1->seconds > t2->seconds) return 1;
-    if (t1->seconds == t2->seconds) {
-        return (t1->nanoseconds >= t2->nanoseconds) ? 1 : 0;
-    }
-    return 0;
-}
-
-/* Initialisiert den L1-Knoten */
 int8_t odep_l1_init(void) {
-    /* Hier Hardware-Peripherie initialisieren (z.B. UART-Baudrate für DMX/DCC) */
-    return 0; /* 0 = OK */
+    /* Hier Hardware-Peripherie initialisieren (z.B. UART-Baudrate für DMX/CAN) */
+    return 0; 
 }
 
-/* 
- * Verarbeitet ein eingehendes L1-Paket.
- * Diese Funktion wird idealerweise aus der Hauptschleife (Main-Loop) 
- * oder einem hochpräzisen Timer-Interrupt aufgerufen.
- */
-void odep_l1_process_frame(const OdepL1Frame_t* frame, const OdepPtpTime_t* current_system_time) {
-    /* 1. Validitätsprüfung mit minimalem Overhead */
+void odep_l1_process_frame(const OdepL1Frame_t* frame, uint32_t current_sec, uint32_t current_nsec) {
+    /* 1. Validitätsprüfung auf dem Microcontroller mit minimalen CPU-Zyklen */
     if (frame->header.magic != ODEP_MAGIC_NUMBER) {
         return; /* Falsches Protokoll, sofort verwerfen */
     }
@@ -30,19 +15,15 @@ void odep_l1_process_frame(const OdepL1Frame_t* frame, const OdepPtpTime_t* curr
     }
 
     /* 
-     * 2. Buffer-Ahead / Zeit-Check
-     * Prüfe, ob die aktuelle PTP-Systemzeit die geforderte Ausführungszeit 
-     * des Pakets bereits erreicht oder überschritten hat.
+     * 2. Echtzeit Buffer-Ahead / Delta-Zeit-Check
+     * Direkter Vergleich der entpackten PTP-Registerwerte zur Einsparung von Struct-Kopien.
      */
-    if (odep_time_reached(current_system_time, &(frame->header.timestamp))) {
+    if (current_sec > frame->header.timestamp.seconds || 
+       (current_sec == frame->header.timestamp.seconds && current_nsec >= frame->header.timestamp.nanoseconds)) {
         
-        /* 
-         * 3. Direkter Hardware-Output
-         * Reicht die rohen Nutzdaten (DMX-Bytes, DCC-Bitstream oder Registerwerte)
-         * direkt an die physische Treiberschicht weiter.
-         */
+        /* 3. Direkter Hardware-Output des Differenz-Pakets */
         if (frame->header.payload_size <= ODEP_L1_MAX_BYTES) {
-            odep_hw_raw_output(frame->payload, frame->header.payload_size);
+            odep_hw_raw_output(frame->payload, (uint16_t)frame->header.payload_size);
         }
     }
 }

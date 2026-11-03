@@ -44,7 +44,7 @@ distinct hardware-level communication ports assigned to each subordinate "dumb" 
 
 The edge node encapsulates the network routing layer and performs microsecond-level hardware translation
 
-between the IP packet envelope and the serial register/PID structure of the legacy device—entirely
+between the IP packet envelope and the serial register/PID structure of the legacy deviceâ€”entirely
 
 bypassing the need for a centralized streaming master.
 
@@ -82,7 +82,7 @@ and transmitted \*once\* as a discrete "Smart Payload" to the edge node.
 
 
 
-The edge device’s CPU reads this function and autonomously calculates the step-by-step driver interpolation
+The edge deviceâ€™s CPU reads this function and autonomously calculates the step-by-step driver interpolation
 
 (e.g., LED PWM frequencies or stepper motor pulses) locally in microsecond cycles.
 
@@ -133,6 +133,7 @@ If a rule triggers, the engine instantly fires an abstracted command down to the
 
 
 Furthermore, locally deployed macros execute with absolute \*Location Transparency\*:
+
 
 the macro queries and alters device states via an asynchronous RPC network layer that handles local memory accesses and
 
